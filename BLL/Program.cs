@@ -1,4 +1,12 @@
+using BLL.DAL;
+
 var builder = WebApplication.CreateBuilder(args);
+
+using (var context = new StudentsDbContext())
+{
+    context.SeedData();
+}
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

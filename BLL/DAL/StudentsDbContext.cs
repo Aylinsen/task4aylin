@@ -12,7 +12,7 @@ namespace BLL.DAL
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // PostgreSQL bağlantı dizesini burada belirtiyoruz.
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=StudentsDB;Username=postgres;Password=YourPassword");
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=StudentsDB;Username=postgres;Password=1234");
         }
 
         // Veritabanı tablolarını yapılandırmak için kullanılabilir. (İsteğe bağlı)
@@ -25,5 +25,18 @@ namespace BLL.DAL
                 .Property(s => s.Name)
                 .HasMaxLength(50);
         }
+        
+        public void SeedData()
+        {
+            if (!this.Students.Any())
+            {
+                this.Students.AddRange(
+                    new Student { Name = "John", Surname = "Doe", BirthDate = new DateTime(1995, 5, 12), GPA = 3.5M },
+                    new Student { Name = "Jane", Surname = "Smith", BirthDate = new DateTime(1998, 7, 24), GPA = 3.8M }
+                );
+                this.SaveChanges();
+            }
+        }
+
     }
 }
